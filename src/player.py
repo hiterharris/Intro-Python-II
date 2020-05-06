@@ -4,6 +4,6 @@
 from room import Room
 
 class Player:
-    def __init__(self, name: str, current_room: Room):
+    def __init__(self, name, current_room: Room):
         self.name = name
         self.current_room = current_room
