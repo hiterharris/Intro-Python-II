@@ -41,7 +41,6 @@ running = True
 player = Player("Hiter", room["outside"])
 print(f"Welcome {player.name}!")
 
-
 while running:
     print(player.current_room.name)
     print(player.current_room.description)
