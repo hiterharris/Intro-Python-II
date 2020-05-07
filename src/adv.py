@@ -1,5 +1,6 @@
 from room import Room
 from player import Player
+from item import Item
 
 # Declare all the rooms
 
@@ -24,7 +25,6 @@ earlier adventurers. The only exit is to the south."""),
 
 
 # Link rooms together
-
 room['outside'].n_to = room['foyer']
 room['foyer'].s_to = room['outside']
 room['foyer'].n_to = room['overlook']
@@ -34,24 +34,37 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
-# Run game
-running = True
+# Initialize items
+sword = Item('Sword', 'Fights off enemies')
+shield = Item('Sheild', 'Defends you from attack')
 
-# Create player
-player = Player("Hiter", room["outside"])
-print(f"Welcome {player.name}!")
+# Add items to rooms
+room['outside'].addItems(sword)
+room['foyer'].addItems(shield)
 
-while running:
-    print(player.current_room.name)
-    print(player.current_room.description)
+username = input("What is your name? ")
+player = Player(username, room['outside'])
 
-    user_input = input('Where do you want to go? Enter (n, s, e, or w; q to quit): ')
-    if user_input == 'q':
-        print('Thanks for playing!')
-        running = False
-    else:
-        next_room = player.current_room.get_next_room_for_direction(user_input)
-        if next_room is None:
-            print("No room in this direction.")
-        else:
-            player.current_room = next_room
+while True:
+	player.displayRoom()
+	user = input("[n] North\t[s] South\t[e] East\t[w] West\n[i] Inventory\n[take item]\t[drop item]\n[q] Quit: ").lower()
+	inputs = user.split()
+	directions = ('n', 's', 'e', 'w')
+
+	if len(inputs) == 1:
+		if inputs[0] == 'q':
+			break
+		elif inputs[0] in directions:
+			player.moveTo(inputs[0])
+		elif inputs[0] == 'i':
+			player.displayInventory()
+
+	elif len(inputs) == 2:
+		if inputs[0] == "get" or inputs[0] == "take":
+			player.addItem(inputs[1])
+		elif inputs[0] == "drop":
+			player.dropItem(inputs[1])
+	else:
+		print("Invalid command.")
+
+	print("\n")
