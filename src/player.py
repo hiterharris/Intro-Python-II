@@ -1,5 +1,4 @@
 class Player:
-	"""docstring for Player"""
 	def __init__(self, name, room):
 		self.name = name
 		self.current_room = room

@@ -35,8 +35,8 @@ room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
 # Initialize items
-sword = Item('Sword', 'Fights off enemies')
-shield = Item('Sheild', 'Defends you from attack')
+sword = Item('sword', 'Fights off enemies')
+shield = Item('sheild', 'Defends you from attack')
 
 # Add items to rooms
 room['outside'].addItems(sword)
